@@ -15,5 +15,5 @@ object ClassLoadingTest extends App {
           case e => println(line)
       }
    })
-    
+
 }

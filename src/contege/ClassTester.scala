@@ -27,19 +27,19 @@ import contege.seqexec.reflective.SequenceManager
 import contege.seqexec.reflective.SequenceExecutor
 import scala.util.control.Exception.allCatch
 
-class ClassTester(config: Config, stats: Stats, putClassLoader: ClassLoader, putJarPath: String, envTypes: ArrayList[String],
-    random: Random, finalizer: Finalizer) {
+class ClassTester(config: Config,
+                  stats: Stats,
+                  putClassLoader: ClassLoader,
+                  putJarPath: String,
+                  envTypes: ArrayList[String],
+                  random: Random,
+                  finalizer: Finalizer) {
 
     // PLDI 2012
     private val cutCallsPerSeq = 2
     private val maxSuffixLength = 10
     private val concRunRepetitions = 100
     private val maxStateChangersInPrefix = 5
-
-//    private val cutCallsPerSeq = 2
-//    private val maxSuffixLength = 10
-//    private val concRunRepetitions = 1000
-//    private val maxStateChangersInPrefix = 5
 
     private val prefixes = new ArrayList[Prefix] // kept separately to ensure deterministic random selection of one
     private val prefix2SuffixGen = Map[Prefix, SuffixGen]()
@@ -62,6 +62,8 @@ class ClassTester(config: Config, stats: Stats, putClassLoader: ClassLoader, put
     TypeResolver.bcReader.classLoader = putClassLoader
 
     def run: Unit = {
+
+        //check deadlock
         val dlMonitor = new DeadlockMonitor(config, global)
         dlMonitor.setDaemon(true)
         dlMonitor.start
@@ -110,8 +112,11 @@ class ClassTester(config: Config, stats: Stats, putClassLoader: ClassLoader, put
     }
 
     private def getPrefix: Prefix = {
+
         if (prefixes.size < config.maxPrefixes) { // try to create a new prefix
+
             new InstantiateCutTask(global).run match {
+
                 case Some(prefix) => {
                     prefix.fixCutVariable
                     assert(prefix.types.contains(config.cut), prefix.types)
@@ -160,51 +165,120 @@ object ClassTester extends Finalizer {
     var stats: Stats = _
     var config: Config = _
 
+//    def main(args: Array[String]): Unit = {
+//
+//        println("Starting ClassTester at " + new Date())
+//
+//        //org.jfree.data.XYSeries ${testedJarEnvTypes} ${seed} ${maxSuffixGenTries} result.out false
+//        /**
+//          * 01 check arguements
+//          */
+//        assert(args.size == 6 || args.size == 7 || args.size ==8)
+//
+//        /**
+//          * 02 args(0) set class Under Test
+//          */
+//        //val cut = args(0)
+//        val cut  = "org.jfree.data.XYSeries"
+//
+//        if(args.size==8){
+//
+//            args(7) match {
+//
+//                case time if(isLong(time)) => scheduleTimer(time.toLong)
+//                case _ => //do nothing as supplied string is not parseable to Integer
+//            }
+//        }
+//        /**
+//          * 03 args(2) set program seed
+//          */
+//        val seed = args(2).toInt
+//        /**
+//          * 04 args(3) set maxSuffixGenTries
+//          */
+//        val maxSuffixGenTries = args(3).toInt
+//        assert(maxSuffixGenTries >= 2)
+//        /**
+//          * 05 args(5) set callClinit ???
+//          */
+//        val callClinit = args(5).toBoolean
+//        /**
+//          * 06 args(6) check whether cut methods have been selected
+//          */
+//        val selectedCUTMethods: Option[ArrayList[String]] = {
+//
+//            if (args.size == 7 && args(6)!="-1")
+//                Some(readMethods(args(6)))
+//            else
+//                None
+//        }
+//        if (selectedCUTMethods.isDefined)
+//            println("Focusing on " + selectedCUTMethods.get.size + " CUT methods")
+//        else
+//            println("No specific CUT methods selected")
+//
+//        /**
+//          * 07 create config and use args(4) set result output dir
+//          */
+//        config = new Config(cut, seed, maxSuffixGenTries, selectedCUTMethods, new File("/tmp/"), callClinit)
+//        val random = new Random(seed)
+//        //args(4) result output
+//        val resultFileName = args(4)
+//        config.addCheckerListener(new ResultFileCheckerListener(resultFileName))
+//        /**
+//          * 08 ????
+//          */
+//        val envTypes = new ArrayList[String]
+//        envTypes.add("java.lang.Object")
+//        Util.addEnvTypes(args(1), envTypes, this.getClass.getClassLoader)
+//
+//        stats = new Stats
+//        val tester = new ClassTester(config, stats, getClass.getClassLoader, ".", envTypes, random, this)
+//        println("Testing " + cut + " with seed " + seed)
+//
+//        stats.timer.start("all")
+//
+//        tester.run
+//
+//        finalizeAndExit(false)
+//    }
+
     def main(args: Array[String]): Unit = {
-        println("Starting ClassTester at " + new Date())
-        
-        assert(args.size == 6 || args.size == 7 || args.size ==8)
-        val cut = args(0)
-        
 
-        def isLong(argsStr: String): Boolean = (allCatch opt argsStr.toLong).isDefined
+        println(System.getProperty("user.dir"))
 
-        if(args.size==8){
-          args(7) match
-          { 
-            case time if(isLong(time)) => scheduleTimer(time.toLong)
-            case _ => //do nothing as supplied string is not parseable to Integer
-           }
-          }
-        
-
-        val seed = args(2).toInt
-        val maxSuffixGenTries = args(3).toInt
-        assert(maxSuffixGenTries >= 2)
-        val callClinit = args(5).toBoolean
-        val selectedCUTMethods: Option[ArrayList[String]] = if (args.size == 7 && args(6)!="-1") Some(readMethods(args(6))) else None
-        if (selectedCUTMethods.isDefined) println("Focusing on "+selectedCUTMethods.get.size+" CUT methods")
-        else println("No specific CUT methods selected")
+        var cut  = "org.jfree.data.XYSeries"
+        val seed = 3
+        val maxSuffixGenTries = 100
+        val callClinit = false
+        val selectedCUTMethods: Option[ArrayList[String]] = None
         config = new Config(cut, seed, maxSuffixGenTries, selectedCUTMethods, new File("/tmp/"), callClinit)
         val random = new Random(seed)
-
-        val resultFileName = args(4)
+        val resultFileName = "result.out"
         config.addCheckerListener(new ResultFileCheckerListener(resultFileName))
 
         val envTypes = new ArrayList[String]
         envTypes.add("java.lang.Object")
-        Util.addEnvTypes(args(1), envTypes, this.getClass.getClassLoader)
+
+        /**
+          * QUESTION1 : add environment dependency??? yes!!!
+          */
+        val envTypesPath: String = "./benchmarks/pldi2012/XYSeries/env_types.txt"
+        Util.addEnvTypes(envTypesPath, envTypes, this.getClass.getClassLoader)
 
         stats = new Stats
-
         val tester = new ClassTester(config, stats, getClass.getClassLoader, ".", envTypes, random, this)
+
         println("Testing " + cut + " with seed " + seed)
+
         stats.timer.start("all")
 
         tester.run
-       
+
         finalizeAndExit(false)
     }
+
+    def isLong(argsStr: String): Boolean = (allCatch opt argsStr.toLong).isDefined
 
     //function to schedule timer to exit the program after given time in milliseconds.
     def scheduleTimer(time:Long){

@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="SynchronizedMap">
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/benchmarks/pldi2012/SynchronizedMap/jar" />
+      <root url="file://$PROJECT_DIR$/benchmarks/pldi2012/SynchronizedMap/lib" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+    <jarDirectory url="file://$PROJECT_DIR$/benchmarks/pldi2012/SynchronizedMap/jar" recursive="false" />
+    <jarDirectory url="file://$PROJECT_DIR$/benchmarks/pldi2012/SynchronizedMap/lib" recursive="false" />
+  </library>
+</component>

@@ -22,11 +22,14 @@ class ClassReader(val cls: Class[_]) {
 	}
 	
 	def readConstructorAtoms = {
+
 		val atoms = Set[ConstructorAtom]()
 		if (!Modifier.isAbstract(cls.getModifiers)) {
-			cls.getConstructors.foreach(c => if (Modifier.isPublic(c.getModifiers) &&
-					                            !c.isSynthetic &&
-					                            !Modifier.isAbstract(c.getModifiers)) atoms += new ConstructorAtom(cls, c))
+			//if the modifier of cls is not abstract
+			cls.getConstructors.foreach(c => if (Modifier.isPublic(c.getModifiers) && !c.isSynthetic && !Modifier.isAbstract(c.getModifiers)) {
+												atoms += new ConstructorAtom(cls, c)
+											 }
+										)
 		}
 		atoms.toSeq.sortWith((x,y) => x.toString < y.toString)
 	}

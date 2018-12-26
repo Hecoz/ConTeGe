@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="Day">
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/benchmarks/pldi2012/Day/jar" />
+      <root url="file://$PROJECT_DIR$/benchmarks/pldi2012/Day/lib" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+    <jarDirectory url="file://$PROJECT_DIR$/benchmarks/pldi2012/Day/jar" recursive="false" />
+    <jarDirectory url="file://$PROJECT_DIR$/benchmarks/pldi2012/Day/lib" recursive="false" />
+  </library>
+</component>

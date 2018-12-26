@@ -2,13 +2,24 @@
 
 pwd=`pwd`
 
-contege="${pwd}/bin"
-contegeLibs="${pwd}/lib/scala-lib-2.10.2.jar:${pwd}/lib/asm-tree-4.0.jar:${pwd}/lib/asm-4.0.jar:${pwd}/lib/tools.jar:${pwd}/lib/testSkeleton.jar:${pwd}/lib/commons-io-2.0.1.jar:${pwd}/lib/jpf.jar:${pwd}/lib/bcel-5.2.jar"
+contege="${pwd}/out/production/ConTeGe"
+
+contegeLibs="${pwd}/lib/scala-lib-2.10.2.jar:\
+             ${pwd}/lib/asm-tree-4.0.jar:\
+             ${pwd}/lib/asm-4.0.jar:\
+             ${pwd}/lib/tools.jar:\
+             ${pwd}/lib/testSkeleton.jar:\
+             ${pwd}/lib/commons-io-2.0.1.jar:\
+             ${pwd}/lib/jpf.jar:\
+             ${pwd}/lib/bcel-5.2.jar"
+contegeLibs=${contegeLibs// }
+
 contegeOwnLibs="${pwd}/ownLibs/javaModel.jar:${pwd}/ownLibs/clinitRewriter.jar"
 
 # example: test XYSeries class from jfreechart-0.9.8 --- replace this with your own class under test
 bmBase="${pwd}/benchmarks/pldi2012/"
 bm="XYSeries"
+
 testedJar="${bmBase}/${bm}/jar/jfreechart-0.9.8_rewritten.jar"
 testedJarLibs="${bmBase}/${bm}/lib/jcommon-0.8.0.jar:${bmBase}/${bm}/clinit.jar"
 testedJarEnvTypes="${bmBase}/${bm}/env_types.txt"

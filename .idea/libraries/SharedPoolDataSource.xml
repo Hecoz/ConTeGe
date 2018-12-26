@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="SharedPoolDataSource">
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/benchmarks/pldi2012/SharedPoolDataSource/jar" />
+      <root url="file://$PROJECT_DIR$/benchmarks/pldi2012/SharedPoolDataSource/lib" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+    <jarDirectory url="file://$PROJECT_DIR$/benchmarks/pldi2012/SharedPoolDataSource/jar" recursive="false" />
+    <jarDirectory url="file://$PROJECT_DIR$/benchmarks/pldi2012/SharedPoolDataSource/lib" recursive="false" />
+  </library>
+</component>

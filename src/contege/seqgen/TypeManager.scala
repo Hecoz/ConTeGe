@@ -32,21 +32,32 @@ class TypeManager(cut: String, envClasses: Seq[String], val putClassLoader: Clas
 	allClasses.addAll(envClasses)
 	allClasses.add(cut)
 	allClasses.foreach(cls => {
+
+//		println(" - - - - - - " + cls + " - - - - - - - - - - ")
+//		constructors(cls).foreach(println)
 		constructors(cls).foreach(atom => if(atom.returnType.isDefined) {
+
+			//allSuperTypes(Some(cls)).foreach(println)
+			//allSuperTypes(atom.returnType).foreach(println)
 			allSuperTypes(atom.returnType).foreach(typ => {
 				type2Atoms.getOrElseUpdate(typ, new ArrayList[Atom]).add(atom)	
 			})
 			type2AtomsPrecise.getOrElse(atom.returnType.get, new ArrayList[Atom]).add(atom)
 		})
-			
+
+//		methods(cls).foreach(println)
+//		methods(cls).foreach(atom => if(atom.returnType.isDefined) println(atom.returnType))
+
 		methods(cls).foreach(atom => if(atom.returnType.isDefined) {
+
 			allSuperTypes(atom.returnType).foreach(typ => {
 			    type2Atoms.getOrElseUpdate(typ, new ArrayList[Atom]).add(atom)
 			})			
 			type2AtomsPrecise.getOrElseUpdate(atom.returnType.get, new ArrayList[Atom]).add(atom)
 		})			
-		
+
 		fieldGetters(cls).foreach(atom => {
+
 			assert(atom.returnType.isDefined) // each field should have a type
 			allSuperTypes(atom.returnType).foreach(typ => {
 				type2Atoms.getOrElseUpdate(typ, new ArrayList[Atom]).add(atom)
@@ -55,7 +66,7 @@ class TypeManager(cut: String, envClasses: Seq[String], val putClassLoader: Clas
 		})
 	})
 
-	println("TypeManager has indexed "+allClasses.size+" classes")
+	println("TypeManager has indexed " + allClasses.size + " classes")
 	
 	private var cutMethods_ = methods(cut)
 	
@@ -71,6 +82,7 @@ class TypeManager(cut: String, envClasses: Seq[String], val putClassLoader: Clas
 	}
 	
 	def atomGivingType(typ: String): Option[Atom] = {
+
 		type2Atoms.get(typ) match {
 			case Some(atoms) => Some(atoms(random.nextInt(atoms.size)))
 			case None => None
@@ -78,13 +90,18 @@ class TypeManager(cut: String, envClasses: Seq[String], val putClassLoader: Clas
 	}
 	
 	def atomGivingTypeWithDowncast(typ: String): Option[Atom] = {
+
+		//all the super class
 	    val allFromTypes = allSuperTypes(Some(typ)).toSet
+		//filter java.lang.Object
 	    val filteredFromTypes = if (allFromTypes.contains("java.lang.Object") && allFromTypes.size > 1) {
 	        allFromTypes.filter(_ != "java.lang.Object")
 	    } else allFromTypes
-	    
+
+		//add from type2AtomsPrecise
 	    val allPotentialAtoms = Set[Atom]()
 	    filteredFromTypes.foreach(fromType => allPotentialAtoms.addAll(allAtomsGivingPreciseType(fromType)))
+		//filter constructor
 	    val potentialAtoms = allPotentialAtoms.filter(_.isConstructor == false)
 	    
 	    if (potentialAtoms.size == 0) None
@@ -103,6 +120,7 @@ class TypeManager(cut: String, envClasses: Seq[String], val putClassLoader: Clas
 	 * Names of all supertypes (classes and interfaces), including the class itself.
 	 */
 	private def allSuperTypes(clsNameOpt: Option[String]): Seq[String] = {
+
 		if (!clsNameOpt.isDefined) List[String]()
 		else {
 		    if (Util.primitiveTypes.contains(clsNameOpt.get)) List(clsNameOpt.get)
@@ -117,6 +135,7 @@ class TypeManager(cut: String, envClasses: Seq[String], val putClassLoader: Clas
 		val superTypes = new ArrayList[String]
 		superTypes.add(cls.getName)
 		if(cls.getName != "java.lang.Object") {
+
 			cls.getInterfaces.foreach(itf => {
 				superTypes.addAll(allSuperTypes(itf))
 			})

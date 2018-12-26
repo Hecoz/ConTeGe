@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="PerUserPlloDataSource">
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/benchmarks/pldi2012/PerUserPoolDataSource/jar" />
+      <root url="file://$PROJECT_DIR$/benchmarks/pldi2012/PerUserPoolDataSource/lib" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+    <jarDirectory url="file://$PROJECT_DIR$/benchmarks/pldi2012/PerUserPoolDataSource/jar" recursive="false" />
+    <jarDirectory url="file://$PROJECT_DIR$/benchmarks/pldi2012/PerUserPoolDataSource/lib" recursive="false" />
+  </library>
+</component>

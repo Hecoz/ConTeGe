@@ -26,6 +26,7 @@ class SuffixGen(prefix: Prefix, val maxSuffixLength: Int,
 	//println("CUT methods:\n"+cutMethods.mkString("\n"))
 	
 	def nextSuffix(cutCalls: Int): Option[Suffix] = {
+
 		var suffix = new Suffix(prefix, global)
 		var currentCutCalls = 0
 		while (currentCutCalls < cutCalls) {

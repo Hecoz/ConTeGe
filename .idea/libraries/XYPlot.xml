@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="XYPlot">
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/benchmarks/pldi2012/XYPlot/jar" />
+      <root url="file://$PROJECT_DIR$/benchmarks/pldi2012/XYPlot/lib" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+    <jarDirectory url="file://$PROJECT_DIR$/benchmarks/pldi2012/XYPlot/jar" recursive="false" />
+    <jarDirectory url="file://$PROJECT_DIR$/benchmarks/pldi2012/XYPlot/lib" recursive="false" />
+  </library>
+</component>

@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="NumberAxis">
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/benchmarks/pldi2012/NumberAxis/jar" />
+      <root url="file://$PROJECT_DIR$/benchmarks/pldi2012/NumberAxis/lib" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+    <jarDirectory url="file://$PROJECT_DIR$/benchmarks/pldi2012/NumberAxis/jar" recursive="false" />
+    <jarDirectory url="file://$PROJECT_DIR$/benchmarks/pldi2012/NumberAxis/lib" recursive="false" />
+  </library>
+</component>

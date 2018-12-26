@@ -63,6 +63,7 @@ class Stats {
 }
 
 class IncrementableCounter {
+
 	private var ctr = 0L
 	
 	def get = ctr
@@ -77,6 +78,7 @@ class IncrementableCounter {
 }
 
 class FreqCounter {
+
 	private val string2Freq = Map[String, Long]()
 	
 	def add(s: String) = {

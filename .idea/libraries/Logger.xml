@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="Logger">
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/benchmarks/pldi2012/Logger/jar" />
+      <root url="file://$PROJECT_DIR$/benchmarks/pldi2012/Logger/lib" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+    <jarDirectory url="file://$PROJECT_DIR$/benchmarks/pldi2012/Logger/jar" recursive="false" />
+    <jarDirectory url="file://$PROJECT_DIR$/benchmarks/pldi2012/Logger/lib" recursive="false" />
+  </library>
+</component>

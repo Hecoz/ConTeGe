@@ -17,6 +17,7 @@ abstract class Task[CallSequence <: AbstractCallSequence[_]](global: GlobalState
 	private val maxTries = 10
 	
 	def run: Option[CallSequence] = {
+
 		var triesLeft = maxTries
 		while (triesLeft > 0) {
 			triesLeft -= 1

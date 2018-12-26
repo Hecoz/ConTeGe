@@ -28,6 +28,7 @@ class Prefix(global: GlobalState) extends AbstractCallSequence[Prefix](global) {
 	}
 	
     override def copy = {
+
     	val result = new Prefix(global)
     	var cutVarAssigned = false
     	calls.foreach(call => {

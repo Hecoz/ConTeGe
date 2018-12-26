@@ -19,8 +19,7 @@ import contege.GlobalState
  * Possibly uses some variable already in the given sequence. 
  */
 class GetParamTask[CallSequence <: AbstractCallSequence[CallSequence]](seqBefore: CallSequence, typ: String,
-         nullAllowed: Boolean, global: GlobalState)
-extends Task[CallSequence](global) {
+         nullAllowed: Boolean, global: GlobalState) extends Task[CallSequence](global) {
 	
 	var param: Option[Variable] = None
 	
@@ -28,13 +27,16 @@ extends Task[CallSequence](global) {
 	private var currentRecursion = 0 
 	
 	override def run = {
+
 	    global.stats.paramTasksStarted.add("GetParamTask for "+typ)
 		val ret = super.run
-		if (!ret.isDefined) global.stats.paramTasksFailed.add("GetParamTask for "+typ) 
+		if (!ret.isDefined)
+			global.stats.paramTasksFailed.add("GetParamTask for "+typ)
 		ret		
 	}
 	
 	def computeSequenceCandidate = {
+
 		val newSequence = seqBefore.copy
 		
 		param = findVarOfType(typ, newSequence, nullAllowed)
@@ -46,25 +48,39 @@ extends Task[CallSequence](global) {
 	}
 	
 	private def findVarOfType(typ: String, sequence: CallSequence, nullAllowed: Boolean): Option[Variable] = {
+
 		if (currentRecursion > maxRecursion) {
 			return None
 		}
 		currentRecursion += 1
-		
+
+		//这个是在当前的sequence中找
 		if (sequence.types.contains(typ) && global.random.nextBool) { // reuse existing var of this type
+
 			val vars = sequence.varsOfType(typ)
 		    val selectedVar = vars(global.random.nextInt(vars.size))
 			return Some(selectedVar)
+
 		} else if (!global.typeProvider.primitiveProvider.isNonRefType(typ) && nullAllowed && global.random.nextBool) {
+			//如果类型不是 int,double,boolean...等基本类型，且允许为NULL
 		    return Some(NullConstant) // occasionally, use null (reduce probability?) 
 		} else {
+
+			//如果当前的Sequence中没有能生成此类变量的，并且这个类型不是INT,DOUBLE等基本类型变量，且不能为NULL
+
 			if (global.typeProvider.primitiveProvider.isPrimitiveOrWrapper(typ)) {
+				//如果类型是 原始类型int,double,boolean...或是包装类型 Integer,Character,Byte....
 				return Some(new Constant(global.typeProvider.primitiveProvider.next(typ)))
+
 			} else { // append calls to the sequence to create a new var of this type
+
+				//这个是在静态分析类与其依赖的类，父类等中去找
 				var atomOption = global.typeProvider.atomGivingType(typ)
 				var downcast = false
 				if (!atomOption.isDefined) {
+
 					if (nullAllowed && global.random.nextBool) {
+
 						global.stats.nullParams.add(typ)
 						return Some(NullConstant)
 					} else {
@@ -79,7 +95,7 @@ extends Task[CallSequence](global) {
 					}				
 				}
 				val atom = atomOption.get
-				
+				//receiver 实例对象
 				val receiver = if (atom.isStatic || atom.isConstructor) None 
 				               else {
 									// recursively try to find a variable we can use as receiver
@@ -96,6 +112,7 @@ extends Task[CallSequence](global) {
 							   }
 				
 				val args = new ArrayList[Variable]()
+
 				atom.paramTypes.foreach(t => {
 					val arg = findVarOfType(t, sequence, true) match {
 						case Some(a) => {

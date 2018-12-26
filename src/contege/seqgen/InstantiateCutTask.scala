@@ -13,15 +13,21 @@ import contege._
 class InstantiateCutTask(global: GlobalState) extends Task[Prefix](global) {
 
     def computeSequenceCandidate: Option[Prefix] = {
+
+	    //class under test
         val cut = global.config.cut
+	    //可以创建CUT的函数(返回值为CUT类型)
         val constructingAtoms = new ArrayList[Atom]
         val constructors = global.typeProvider.constructors(cut)
+
         if (global.config.isInstanceOf[SubclassTesterConfig]) {
+
             // use only constructors that can be mapped to subclass constructors
             val subclassTesterConfig = global.config.asInstanceOf[SubclassTesterConfig]
             val mappableConstructors = constructors.filter(c => subclassTesterConfig.constructorMap.mappable(c.paramTypes.mkString("(", ",", ")")))
             constructingAtoms.addAll(mappableConstructors)
         } else {
+
             // use all constructors and methods that can instantiate the CUT
             constructingAtoms.addAll(constructors)
             val ownStaticCreators = global.typeProvider.cutMethods.filter(m => m.isStatic && m.returnType.isDefined && m.returnType.get == cut)
@@ -46,6 +52,8 @@ class InstantiateCutTask(global: GlobalState) extends Task[Prefix](global) {
         // if the "constructor" is an instance method, create a subtask to find an instance
         var receiver: Option[Variable] = None
         if (!constructor.isStatic && !constructor.isConstructor) {
+
+            //如果选择的不是个静态方法，且不是构造器函数
             val receiverType = constructor.declaringType
             val receiverTask = new GetParamTask(result, receiverType, false, global)
             receiverTask.run match {
@@ -60,6 +68,7 @@ class InstantiateCutTask(global: GlobalState) extends Task[Prefix](global) {
 
         // create a subtask for each parameter; if one fails, this task also fails
         val args = new ArrayList[Variable]()
+        //获取constructor的参数，声明参数类型并添加到prefix中
         constructor.paramTypes.foreach(typ => {
             val paramTask = new GetParamTask(result, typ, true, global)
             paramTask.run match {
@@ -78,5 +87,4 @@ class InstantiateCutTask(global: GlobalState) extends Task[Prefix](global) {
 
         Some(result)
     }
-
 }

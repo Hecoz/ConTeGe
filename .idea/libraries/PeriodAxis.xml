@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="PeriodAxis">
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/benchmarks/pldi2012/PeriodAxis/jar" />
+      <root url="file://$PROJECT_DIR$/benchmarks/pldi2012/PeriodAxis/lib" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+    <jarDirectory url="file://$PROJECT_DIR$/benchmarks/pldi2012/PeriodAxis/jar" recursive="false" />
+    <jarDirectory url="file://$PROJECT_DIR$/benchmarks/pldi2012/PeriodAxis/lib" recursive="false" />
+  </library>
+</component>

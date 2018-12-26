@@ -17,6 +17,15 @@ class TSOracleNormalExec(finalizer: Finalizer, concRunRepetitions: Int,
                          config: Config) extends TSOracle(finalizer, stats, config) {
 
     override def analyzeTest(prefix: Prefix, suffix1: Suffix, suffix2: Suffix) = {
+
+//	    println(" = = = = = = = = = = = = = = = = = = = = = = = = = ")
+//	    println("Prefix:")
+//	    println(prefix)
+//	    println("Suffix1:")
+//	    println(suffix1)
+//	    println("Suffix2:")
+//	    println(suffix2)
+
         println("==== Starting Java scheduler-based execution ====")
         
         for (rep <- 1 to concRunRepetitions) {

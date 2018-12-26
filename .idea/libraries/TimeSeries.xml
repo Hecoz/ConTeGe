@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="TimeSeries">
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/benchmarks/pldi2012/TimeSeries/jar" />
+      <root url="file://$PROJECT_DIR$/benchmarks/pldi2012/TimeSeries/lib" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+    <jarDirectory url="file://$PROJECT_DIR$/benchmarks/pldi2012/TimeSeries/jar" recursive="false" />
+    <jarDirectory url="file://$PROJECT_DIR$/benchmarks/pldi2012/TimeSeries/lib" recursive="false" />
+  </library>
+</component>

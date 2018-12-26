@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="MedlineSentenceModel">
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/benchmarks/pldi2012/MedlineSentenceModel/jar" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+    <jarDirectory url="file://$PROJECT_DIR$/benchmarks/pldi2012/MedlineSentenceModel/jar" recursive="false" />
+  </library>
+</component>

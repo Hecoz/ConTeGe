@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="JAVA_MODULE" version="4">
+  <component name="NewModuleRootManager" inherit-compiler-output="true">
+    <exclude-output />
+    <content url="file://$MODULE_DIR$">
+      <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/tests" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/eval" isTestSource="false" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="scala-sdk-2.11.12" level="application" />
+    <orderEntry type="library" name="ConTeGe-lib" level="project" />
+    <orderEntry type="library" name="ConTeGe-ownLibs" level="project" />
+    <orderEntry type="module" module-name="BufferedInputStream" />
+    <orderEntry type="module" module-name="ConcurrentHashMap" />
+    <orderEntry type="module" module-name="Day" />
+    <orderEntry type="module" module-name="Logger" />
+    <orderEntry type="module" module-name="MedlineSentenceModel" />
+    <orderEntry type="module" module-name="NumberAxis" />
+    <orderEntry type="module" module-name="PeriodAxis" />
+    <orderEntry type="module" module-name="PerUserPoolDataSource" />
+    <orderEntry type="module" module-name="SharedPoolDataSource" />
+    <orderEntry type="module" module-name="StringBuffer" />
+    <orderEntry type="module" module-name="SynchronizedMap" />
+    <orderEntry type="module" module-name="TimeSeries" />
+    <orderEntry type="module" module-name="XStream" />
+    <orderEntry type="module" module-name="XYPlot" />
+    <orderEntry type="module" module-name="XYSeries" />
+  </component>
+</module>

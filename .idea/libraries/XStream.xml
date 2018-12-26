@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="XStream">
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/benchmarks/pldi2012/XStream/jar" />
+      <root url="file://$PROJECT_DIR$/benchmarks/pldi2012/XStream/lib" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+    <jarDirectory url="file://$PROJECT_DIR$/benchmarks/pldi2012/XStream/jar" recursive="false" />
+    <jarDirectory url="file://$PROJECT_DIR$/benchmarks/pldi2012/XStream/lib" recursive="false" />
+  </library>
+</component>

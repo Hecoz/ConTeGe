@@ -11,14 +11,19 @@ import java.lang.reflect.Modifier
 object Util {
 
 	def addEnvTypes(classesFileName: String, envTypes: ArrayList[String], putClassLoader: ClassLoader) = {
-		val r = new BufferedReader(new FileReader(classesFileName))
-		var className = r.readLine
+
+		val fileReader = new BufferedReader(new FileReader(classesFileName))
+
+		var className = fileReader.readLine
 		while (className != null) {
+
 			val cls = Class.forName(className, true, putClassLoader)
-			if (Modifier.isPublic(cls.getModifiers)) envTypes.add(className)
-			className = r.readLine
-		}		
-		r.close
+
+			if (Modifier.isPublic(cls.getModifiers))
+            envTypes.add(className)
+			className = fileReader.readLine
+		}
+        fileReader.close
 	}
 	
 	val primitiveTypes = Set("int", "long", "boolean", "short", "float", "double", "byte", "char")

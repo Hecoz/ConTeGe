@@ -290,18 +290,26 @@ abstract class AbstractCallSequence[MyType](global: GlobalState) {
 }
 
 abstract class Variable
+
 class ObjectVariable extends Variable
+
 class Constant(val value: Object) extends Variable // primitive type or String
+
 object NullConstant extends Variable // primitive type or String
 
-class Call(val atom: Atom, val receiver: Option[Variable], val args: Seq[Variable], val retVal: Option[Variable], val downcastType: Option[String]) {
-	assert(atom.nbParams == args.size, "\n"+this)
+class Call(val atom: Atom,
+           val receiver: Option[Variable],
+           val args: Seq[Variable],
+           val retVal: Option[Variable],
+           val downcastType: Option[String]) {
+
+	assert(atom.nbParams == args.size, "\n" + this)
 	assert(!(atom.isConstructor && downcastType.isDefined), "Should not downcast return value of constructor call")
 
 	val downcastCls = if (downcastType.isDefined) Some(Class.forName(downcastType.get)) else None
 	
 	override def toString = {
-		"Call to "+atom+"   receiver="+receiver+"  args="+args+"  retVal="+retVal+(if (downcastType.isDefined) " casted to "+downcastType.get else "")
+		"Call to " + atom + "   receiver=" + receiver+"  args="+args+"  retVal="+retVal+(if (downcastType.isDefined) " casted to "+downcastType.get else "")
 	}
 }
 

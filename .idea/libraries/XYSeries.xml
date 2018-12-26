@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="XYSeries">
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/benchmarks/pldi2012/XYSeries/jar" />
+      <root url="file://$PROJECT_DIR$/benchmarks/pldi2012/XYSeries/lib" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+    <jarDirectory url="file://$PROJECT_DIR$/benchmarks/pldi2012/XYSeries/jar" recursive="false" />
+    <jarDirectory url="file://$PROJECT_DIR$/benchmarks/pldi2012/XYSeries/lib" recursive="false" />
+  </library>
+</component>

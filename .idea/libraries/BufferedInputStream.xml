@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="BufferedInputStream">
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/benchmarks/pldi2012/BufferedInputStream/lib" />
+      <root url="file://$PROJECT_DIR$/benchmarks/pldi2012/BufferedInputStream/jar" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+    <jarDirectory url="file://$PROJECT_DIR$/benchmarks/pldi2012/BufferedInputStream/jar" recursive="false" />
+    <jarDirectory url="file://$PROJECT_DIR$/benchmarks/pldi2012/BufferedInputStream/lib" recursive="false" />
+  </library>
+</component>

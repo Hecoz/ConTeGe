@@ -53,7 +53,8 @@ object GenericsReflector {
                   else f.getType
         cls.getName
     }
-    
+
+	//获取构造器方法形参
     def getParameterTypes(c: Constructor[_], receiverCls: Class[_]): Seq[String] = {
         val typeVar2Class = resolveTypeVars(receiverCls)
         val result = new ArrayList[String]()

@@ -105,6 +105,7 @@ class MethodAtom(receiverType: Class[_], val method: Method) extends Atom(receiv
 }
 
 class ConstructorAtom(receiverType: Class[_], val constr: Constructor[_]) extends Atom(receiverType) {
+
 	override def execute(receiver: Object, args: Seq[Object], downcastCls: Option[Class[_]]): ExecutionResult = {
 		assert(receiver == null)
 		val result = TimeoutRunner.runWithTimeout(() => {
