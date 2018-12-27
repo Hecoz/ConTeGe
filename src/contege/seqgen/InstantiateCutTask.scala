@@ -84,7 +84,6 @@ class InstantiateCutTask(global: GlobalState) extends Task[Prefix](global) {
         })
 
         result.appendCall(constructor, receiver, args, Some(new ObjectVariable), None, true)
-
         Some(result)
     }
 }

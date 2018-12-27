@@ -21,6 +21,6 @@ class TimedExecutionThread(val execute: () => ExecutionResult) extends Thread {
 		System.setErr(oldStdErr)
 		
 		runFinished = true
-	}	
+	}
 	
 }

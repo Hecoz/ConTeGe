@@ -61,6 +61,7 @@ abstract class AbstractCallSequence[MyType](global: GlobalState) {
 	def varsOfType(typ: String) = type2Vars(typ)
 		
 	def execute(var2Object: Map[Variable, Object]): Option[Throwable] = {
+
 		def obj(v: Variable): Object = v match {
 			case c: Constant => c.value
 			case NullConstant => null
@@ -75,6 +76,7 @@ abstract class AbstractCallSequence[MyType](global: GlobalState) {
 			val argObjs = call.args.map(argVar => obj(argVar))
 			val result = call.atom.execute(receiverObj, argObjs, call.downcastCls)
 			result match {
+
 				case Normal(retVal) => call.retVal match {
 					case Some(retValVar) => var2Object.put(retValVar, retVal)
 					case None => assert(retVal == null, "Call should return void when call.retVal is undefined") 

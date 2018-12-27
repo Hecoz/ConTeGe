@@ -5,8 +5,9 @@ import contege._
 object TimeoutRunner {
 
 	val timeout = 10000 // milliseconds
-	
+	//参数1匿名函数
 	def runWithTimeout(execute: () => ExecutionResult, description: String): ExecutionResult = {
+
 		val execThread = new TimedExecutionThread(execute)
 		execThread.start
 		execThread.join(timeout)

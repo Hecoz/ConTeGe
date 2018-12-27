@@ -51,24 +51,29 @@ abstract class Atom(val receiverType: Class[_]) {
 class MethodAtom(receiverType: Class[_], val method: Method) extends Atom(receiverType) {
     
 	override def execute(receiver: Object, args: Seq[Object], downcastCls: Option[Class[_]]): ExecutionResult = {
-		val result = TimeoutRunner.runWithTimeout(() => {
-			try {
-				if (receiver == null && !isStatic) Exception(NullAsReceiverException)
-				else {
-					val r = method.invoke(receiver, args:_*)
-					if (downcastCls.isDefined) {
-						var casted = downcastCls.get.cast(r)
-						Normal(casted.asInstanceOf[Object])
-					} else {
-						Normal(r)
+
+		val result = TimeoutRunner.runWithTimeout(
+
+			() => {
+
+				try {
+					if (receiver == null && !isStatic)
+						Exception(NullAsReceiverException)
+					else {
+						val r = method.invoke(receiver, args:_*)
+						if (downcastCls.isDefined) {
+							var casted = downcastCls.get.cast(r)
+							Normal(casted.asInstanceOf[Object])
+						} else {
+							Normal(r)
+						}
 					}
-				}			
-			} catch {
-				case t: InvocationTargetException => Exception(t)
-				case iae: IllegalAccessException => Exception(iae)
-				case cce: ClassCastException => Exception(cce)
-			}		
-		}, method.toString)			
+				} catch {
+					case t: InvocationTargetException => Exception(t)
+					case iae: IllegalAccessException => Exception(iae)
+					case cce: ClassCastException => Exception(cce)
+				}
+			}, method.toString)
 		result
 	}
 	
@@ -107,16 +112,22 @@ class MethodAtom(receiverType: Class[_], val method: Method) extends Atom(receiv
 class ConstructorAtom(receiverType: Class[_], val constr: Constructor[_]) extends Atom(receiverType) {
 
 	override def execute(receiver: Object, args: Seq[Object], downcastCls: Option[Class[_]]): ExecutionResult = {
+
 		assert(receiver == null)
-		val result = TimeoutRunner.runWithTimeout(() => {
+		val result = TimeoutRunner.runWithTimeout(
+
+			() => {
 			try {
+				//_* 将 args转换为参数序列
 				val r = constr.newInstance(args:_*)
+
 				Normal(r.asInstanceOf[Object])
 			} catch {
 				case t: InvocationTargetException => Exception(t)
 				case iae: IllegalAccessException => Exception(iae)
 			}		
-		}, constr.toString)			
+		}, constr.toString )
+
 		result
 	}
 	
@@ -152,15 +163,19 @@ class ConstructorAtom(receiverType: Class[_], val constr: Constructor[_]) extend
 }
 
 class FieldGetterAtom(receiverType: Class[_], val field: Field) extends Atom(receiverType) {
+
 	override def execute(receiver: Object, args: Seq[Object], downcastCls: Option[Class[_]]): ExecutionResult = {
+
 		try {
-			if (receiver == null && !isStatic) return Exception(NullAsReceiverException)
+
+			if (receiver == null && !isStatic)
+				return Exception(NullAsReceiverException)
 			val r = field.get(receiver)
 			return Normal(r)
 		} catch {
 			case t: InvocationTargetException => Exception(t)
 			case iae: IllegalAccessException => Exception(iae)
-		}		
+		}
 	}
 	
 	override def nbParams = 0
